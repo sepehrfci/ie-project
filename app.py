@@ -1,10 +1,14 @@
-from flask import Flask , redirect , url_for , request , render_template
+from flask import Flask , redirect , url_for , request , render_template , send_file
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+    
+@app.route('/css/style.css')
+def style():
+  return send_file("static/style.css")
     
     
 # class user :
