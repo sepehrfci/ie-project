@@ -39,7 +39,6 @@ def insert_shows(shows_list):
     connection = sqlite3.connect("shows.db")
     cursor = connection.cursor()
     for show in shows_list:
-        # return redirect(url_for('log',msg = show))
         cursor.execute("""
             INSERT INTO shows (
                 show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description
@@ -56,31 +55,24 @@ def insert_shows(shows_list):
 def read_shows():
     connection = sqlite3.connect("shows.db")
     cursor = connection.cursor()
-    cursor.execute("""
-        SELECT
-            show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description
-        FROM shows
-    """)
-
+    cursor.execute("SELECT * FROM shows LIMIT 30")
     # تبدیل داده ها به لیست
     shows_list = []
     for row in cursor:
         shows_list.append({
-            "show_id": row[0],
-            "type": row[1],
-            "title": row[2],
-            "director": row[3],
-            "cast": row[4],
-            "country": row[5],
-            "date_added": row[6],
-            "release_year": row[7],
-            "rating": row[8],
-            "duration": row[9],
-            "listed_in": row[10],
-            "description": row[11],
+            "id": row[0],
+            "show_id": row[1],
+            "type": row[2],
+            "title": row[3],
+            "director": row[4],
+            "cast": row[5],
+            "country": row[6],
+            "date_added": row[7],
+            "release_year": row[8],
+            "rating": row[9],
+            "duration": row[10],
+            "listed_in": row[11],
+            "description": row[12],
         })
-
-    # بستن اتصال
     connection.close()
-
     return shows_list

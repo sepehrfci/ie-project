@@ -9,11 +9,11 @@
 <link rel="stylesheet" href="http://127.0.0.1:6600/static/style.css">
 </head>
 <body>
-    <div class="container-fluid p-4">
+    <div class="container p-4">
         <div class="col">
           <form action="#">
-            <div class="row rounded">
-              <div class="col-4 bg-secondary p-2 rounded-end">
+            <div class="row">
+              <div class="col-4 bg-secondary p-2">
                 <div class="form-group p-2">
                   <input type="text" class="form-control" placeholder="شناسه نمایش" name="show_id">
                 </div>
@@ -41,7 +41,7 @@
                   <input type="text" class="form-control" placeholder="سال انتشار" name="release_year">
                 </div>
               </div>
-              <div class="col-4 bg-secondary p-2 rounded-start">
+              <div class="col-4 bg-secondary p-2">
                 <div class="form-group p-2">
                     <input type="text" class="form-control" placeholder="رتبه بندی" name="rating">
                 </div>
@@ -54,50 +54,13 @@
                 <div class="form-group p-2">
                   <input type="text" class="form-control" placeholder="توضیحات" name="description">
               </div>
-              </div>
-              <button type="submit" class="btn btn-primary mt-2 p-2">جستجو</button>
+            </div>
+              <button type="submit" class="btn btn-primary p-2">جستجو</button>
           </form>
         </div>
         
-        <div class="row bg-secondary p-2 rounded mt-2 " style="font-size=10">
-            <table class="table table-striped ">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">شناسه نمایش</th>
-                    <th scope="col">نوع</th>
-                    <th scope="col">عنوان</th>
-                    <th scope="col">کارگردان</th>
-                    <th scope="col">بازیگران</th>
-                    <th scope="col">کشور</th>
-                    <th scope="col">تاریخ افزودن</th>
-                    <th scope="col">سال انتشار</th>
-                    <th scope="col">رتبه بندی</th>
-                    <th scope="col">مدت زمان</th>
-                    <th scope="col">دسته بندی</th>
-                    <th scope="col">توضیحات</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for show in list :%}
-                  <tr>
-                    <th scope="row">{{ show['id'] }}</th>
-                    <td>{{ show['show_id'] }}</td>
-                    <td>{{ show['type'] }}</td>
-                    <td>{{ show['title'] }}</td>
-                    <td>{{ show['director'] }}</td>
-                    <td>{{ show['cast'] }}</td>
-                    <td>{{ show['country'] }}</td>
-                    <td>{{ show['date_added'] }}</td>
-                    <td>{{ show['release_year'] }}</td>
-                    <td>{{ show['rating'] }}</td>
-                    <td>{{ show['duration'] }}</td>
-                    <td>{{ show['listed_in'] }}</td>
-                    <td>{{ show['description'] }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+        <div class="row bg-dark">
+            <p>vssvsvsdvsdv</p>
         </div>
       </div>
     </div>

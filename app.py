@@ -15,7 +15,8 @@ def index():
     return render_template('index.html')
 @app.route('/search')
 def search():
-    return render_template('search.html')
+    # return showsdb.read_shows()
+    return render_template('search.html',list = showsdb.read_shows())
 
 @app.route('/add-csv-file')
 def add_csv_file(msg = None):
