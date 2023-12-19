@@ -16,11 +16,16 @@
                 <h1>فرم آپلود فایل CSV</h1>
             </div>
             <div class="row">
-                <form action="upload.php" method="post" enctype="multipart/form-data">
+                <form action="/upload-csv-file" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                       <label for="file">انتخاب فایل</label>
                       <input type="file" class="form-control" id="file" name="file" accept=".csv">
                     </div>
+                    {% if msg : %}
+                    <div>
+                        <p class="text-success"> {{ msg }} </p>
+                    </div>
+                    {% endif %}
                     <button type="submit" class="btn btn-primary">ارسال</button>
                     <a href="/" class="btn btn-primary">بازگشت</a>
                   </form>

@@ -1,6 +1,12 @@
 from flask import Flask , redirect , url_for , request , render_template , send_file
+import csv , os
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = '/home/sepehr/Desktop/py/ie-project/csv-files/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+#########  Get routes
 
 @app.route('/')
 def index():
@@ -10,10 +16,45 @@ def search():
     return render_template('search.html')
 
 @app.route('/add-csv-file')
-def add_csv_file():
-    return render_template('add-csv-file.html')  
+def add_csv_file(msg = None):
+    return render_template('add-csv-file.html', msg=msg)  
 
+######### Post Routes
 
+@app.route("/upload-csv-file", methods=["POST"])
+def upload_csv_file():
+    file = request.files['file']
+    if file.filename == '':
+        return redirect(url_for(add_csv_file(msg="نیومده")))
+    file.save(file.filename)
+    data = {}
+    with open(file.filename, "r") as f:
+        reader = csv.reader(f)
+        for row in reader:
+            data[row[0]] = row
+    return data
+    return redirect(url_for(add_csv_file(msg="فایل مورد نظر با موفقیت آپلود و داده ها اضافه شد.")))
+    # file = request.files.get("file")
+    # with open(file.filename, "r") as f:
+    #     reader = csv.reader(f)
+
+    # data = {}
+    # for row in reader:
+    #     data[row[0]] = row[1]
+    # return data
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    
 
 @app.route('/static/style.css')
 def style():
