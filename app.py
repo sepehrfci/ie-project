@@ -1,5 +1,7 @@
 from flask import Flask , redirect , url_for , request , render_template , send_file
 import csv , os
+import sqlite3
+
 
 app = Flask(__name__)
 
@@ -30,8 +32,11 @@ def upload_csv_file():
     data = {}
     with open(file.filename, "r") as f:
         reader = csv.reader(f)
+        id = 0
         for row in reader:
-            data[row[0]] = row
+            data[id] = row
+            id+=1
+    create_show_table()
     return data
     return redirect(url_for(add_csv_file(msg="فایل مورد نظر با موفقیت آپلود و داده ها اضافه شد.")))
     # file = request.files.get("file")
@@ -71,6 +76,34 @@ def font():
 #         self.expirationDate = expirationDate
 #     def __iter__(self) :
 #         return iter([self.username,self.serverName,self.password,self.expirationDate])
+
+
+
+
+def create_show_table():
+    connection = sqlite3.connect("shows.db")
+    cursor = connection.cursor()
+    cursor.execute("""
+        CREATE TABLE shows (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            show_id TEXT,
+            type TEXT,
+            title TEXT,
+            director TEXT,
+            cast TEXT,
+            country TEXT,
+            date_added TEXT,
+            release_year INTEGER,
+            rating REAL,
+            duration INTEGER,
+            listed_in TEXT,
+            description TEXT
+        )
+    """)
+    connection.close()
+
+
+
 
 
 if __name__ == "__main__" :
