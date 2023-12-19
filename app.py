@@ -1,6 +1,6 @@
 from flask import Flask , redirect , url_for , request , render_template , send_file
 import csv , os
-import sqlite3
+import showsdb
 
 
 app = Flask(__name__)
@@ -21,6 +21,10 @@ def search():
 def add_csv_file(msg = None):
     return render_template('add-csv-file.html', msg=msg)  
 
+
+@app.route('/log')
+def log(msg = None):
+    return msg  
 ######### Post Routes
 
 @app.route("/upload-csv-file", methods=["POST"])
@@ -29,16 +33,23 @@ def upload_csv_file():
     if file.filename == '':
         return redirect(url_for(add_csv_file(msg="نیومده")))
     file.save(file.filename)
-    data = {}
+    data = []
     with open(file.filename, "r") as f:
         reader = csv.reader(f)
         id = 0
         for row in reader:
-            data[id] = row
-            id+=1
-    create_show_table()
+            if id == 0 : 
+                id+=1   
+                continue
+            data.append(row)
+            # id+=1
+    #create_show_table()
+    #return data
+    showsdb.drop_shows_table()
+    showsdb.create_show_table()
+    show = showsdb.insert_shows(data)
     return data
-    return redirect(url_for(add_csv_file(msg="فایل مورد نظر با موفقیت آپلود و داده ها اضافه شد.")))
+    # return redirect(url_for(add_csv_file(msg="فایل مورد نظر با موفقیت آپلود و داده ها اضافه شد.")))
     # file = request.files.get("file")
     # with open(file.filename, "r") as f:
     #     reader = csv.reader(f)
@@ -76,34 +87,6 @@ def font():
 #         self.expirationDate = expirationDate
 #     def __iter__(self) :
 #         return iter([self.username,self.serverName,self.password,self.expirationDate])
-
-
-
-
-def create_show_table():
-    connection = sqlite3.connect("shows.db")
-    cursor = connection.cursor()
-    cursor.execute("""
-        CREATE TABLE shows (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            show_id TEXT,
-            type TEXT,
-            title TEXT,
-            director TEXT,
-            cast TEXT,
-            country TEXT,
-            date_added TEXT,
-            release_year INTEGER,
-            rating REAL,
-            duration INTEGER,
-            listed_in TEXT,
-            description TEXT
-        )
-    """)
-    connection.close()
-
-
-
 
 
 if __name__ == "__main__" :
