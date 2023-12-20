@@ -52,10 +52,11 @@ def insert_shows(shows_list):
     connection.commit()
     connection.close()
 
-def read_shows():
+def read_shows(page,nrpp):
+    offset = (int(page) - 1) * nrpp
     connection = sqlite3.connect("shows.db")
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM shows LIMIT 30")
+    cursor.execute(f"SELECT * FROM shows LIMIT {nrpp} OFFSET {str(offset)}")
     # تبدیل داده ها به لیست
     shows_list = []
     for row in cursor:
@@ -76,3 +77,13 @@ def read_shows():
         })
     connection.close()
     return shows_list
+
+
+def page_count(nrpp):
+    connection = sqlite3.connect("shows.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNT(*) FROM shows")
+    count = cursor.fetchone()[0]
+    connection.close()
+
+    return int(count / nrpp) +1

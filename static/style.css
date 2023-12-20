@@ -18,6 +18,10 @@ thead {
     font-size: 14px;
     text-align: center;
 } 
+.pagination {
+  font-size: 10px;
+  text-align: center;
+} 
   .container {
     width: 100%;
     height: 100vh;

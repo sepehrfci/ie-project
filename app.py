@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = '/home/sepehr/Desktop/py/ie-project/csv-files/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+nrpp = 100 # number of records per page
 #########  Get routes
 
 @app.route('/')
@@ -15,8 +15,12 @@ def index():
     return render_template('index.html')
 @app.route('/search')
 def search():
-    # return showsdb.read_shows()
-    return render_template('search.html',list = showsdb.read_shows())
+    pagination = showsdb.page_count(nrpp=nrpp)
+    return render_template('search.html',list = showsdb.read_shows(page=1,nrpp=nrpp) , pagination = pagination , page = 1)
+@app.route('/search/page/<page>')
+def search_page (page):
+    pagination = showsdb.page_count(nrpp=nrpp)
+    return render_template('search.html',list = showsdb.read_shows(page=page,nrpp=nrpp) , pagination = pagination , page = int(page))
 
 @app.route('/add-csv-file')
 def add_csv_file(msg = None):
@@ -46,7 +50,7 @@ def upload_csv_file():
             # id+=1
     #create_show_table()
     #return data
-    showsdb.drop_shows_table()
+    # showsdb.drop_shows_table()
     showsdb.create_show_table()
     show = showsdb.insert_shows(data)
     return data
@@ -79,15 +83,7 @@ def style():
 @app.route('/static/font.ttf')
 def font():
   return send_file("static/Pinar-SemiBold.ttf") 
-    
-# class user :
-#     def __init__(self,username,serverName,password,expirationDate) :
-#         self.username = username
-#         self.serverName = serverName
-#         self.password = password
-#         self.expirationDate = expirationDate
-#     def __iter__(self) :
-#         return iter([self.username,self.serverName,self.password,self.expirationDate])
+
 
 
 if __name__ == "__main__" :
