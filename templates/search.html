@@ -11,50 +11,59 @@
 <body>
     <div class="container-fluid p-4">
         <div class="col">
-          <form action="#">
+          <form action="/search">
             <div class="row rounded">
-              <div class="col-4 bg-secondary p-2 rounded-end">
+              <div class="col-3 bg-secondary p-2 rounded-end">
                 <div class="form-group p-2">
-                  <input type="text" class="form-control" placeholder="شناسه نمایش" name="show_id">
+                  <input type="text" class="form-control" placeholder="age" name="age">
                 </div>
                 <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="نوع" name="type">
+                    <input type="text" class="form-control" placeholder="sex" name="sex">
                 </div>
                 <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="عنوان" name="title">
+                    <input type="text" class="form-control" placeholder="trtbps" name="trtbps">
                 </div>
                 <div class="form-group p-2">
-                  <input type="text" class="form-control" placeholder="کارگردان" name="director">
-                </div>
-              </div>
-              <div class="col-4 bg-secondary p-2">
-                <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="بازیگران" name="cast">
-                </div>
-                <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="کشور" name="country">
-                </div>
-                <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="تاریخ افزودن" name="date_added">
-                </div>
-                <div class="form-group p-2">
-                  <input type="text" class="form-control" placeholder="سال انتشار" name="release_year">
+                  <input type="text" class="form-control" placeholder="chol" name="chol">
                 </div>
               </div>
-              <div class="col-4 bg-secondary p-2 rounded-start">
+              <div class="col-3 bg-secondary p-2">
                 <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="رتبه بندی" name="rating">
+                  <input type="text" class="form-control" placeholder="chol" name="chol">
                 </div>
                 <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="مدت زمان" name="duration">
+                    <input type="text" class="form-control" placeholder="fbs" name="fbs">
                 </div>
                 <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="دسته بندی" name="listed_in">
+                    <input type="text" class="form-control" placeholder="restecg" name="restecg">
                 </div>
                 <div class="form-group p-2">
-                  <input type="text" class="form-control" placeholder="توضیحات" name="description">
+                  <input type="text" class="form-control" placeholder="thalachh" name="thalachh">
+                </div>
               </div>
+              <div class="col-3 bg-secondary p-2">
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" placeholder="exng" name="exng">
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" placeholder="oldpeak" name="oldpeak">
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" placeholder="slp" name="slp">
+                </div>
+                <div class="form-group p-2">
+                  <input type="text" class="form-control" placeholder="caa" name="caa">
+                </div>
               </div>
+              <div class="col-3 bg-secondary p-2 rounded-start">
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" placeholder="thall" name="thall">
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" placeholder="output" name="output">
+                </div>
+                
+            </div>
               <button type="submit" class="btn btn-primary mt-2 p-2">جستجو</button>
           </form>
         </div>
@@ -64,36 +73,40 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">شناسه نمایش</th>
-                    <th scope="col">نوع</th>
-                    <th scope="col">عنوان</th>
-                    <th scope="col">کارگردان</th>
-                    <th scope="col">بازیگران</th>
-                    <th scope="col">کشور</th>
-                    <th scope="col">تاریخ افزودن</th>
-                    <th scope="col">سال انتشار</th>
-                    <th scope="col">رتبه بندی</th>
-                    <th scope="col">مدت زمان</th>
-                    <th scope="col">دسته بندی</th>
-                    <th scope="col">توضیحات</th>
+                    <th scope="col">age</th>
+                    <th scope="col">sex</th>
+                    <th scope="col">cp</th>
+                    <th scope="col">trtbps</th>
+                    <th scope="col">chol</th>
+                    <th scope="col">fbs</th>
+                    <th scope="col">restecg</th>
+                    <th scope="col">thalachh</th>
+                    <th scope="col">exng</th>
+                    <th scope="col">oldpeak</th>
+                    <th scope="col">slp</th>
+                    <th scope="col">caa</th>
+                    <th scope="col">thall</th>
+                    <th scope="col">output</th>
                   </tr>
                 </thead>
                 <tbody>
-                {% for show in list :%}
+                {% for heart in list :%}
                   <tr>
-                    <th scope="row">{{ show['id'] }}</th>
-                    <td>{{ show['show_id'] }}</td>
-                    <td>{{ show['type'] }}</td>
-                    <td>{{ show['title'] }}</td>
-                    <td>{{ show['director'] }}</td>
-                    <td>{{ show['cast'] }}</td>
-                    <td>{{ show['country'] }}</td>
-                    <td>{{ show['date_added'] }}</td>
-                    <td>{{ show['release_year'] }}</td>
-                    <td>{{ show['rating'] }}</td>
-                    <td>{{ show['duration'] }}</td>
-                    <td>{{ show['listed_in'] }}</td>
-                    <td>{{ show['description'] }}</td>
+                    <th scope="row">{{ heart['id'] }}</th>
+                    <td>{{ heart['age'] }}</td>
+                    <td>{{ heart['sex'] }}</td>
+                    <td>{{ heart['cp'] }}</td>
+                    <td>{{ heart['trtbps'] }}</td>
+                    <td>{{ heart['chol'] }}</td>
+                    <td>{{ heart['fbs'] }}</td>
+                    <td>{{ heart['restecg'] }}</td>
+                    <td>{{ heart['thalachh'] }}</td>
+                    <td>{{ heart['exng'] }}</td>
+                    <td>{{ heart['oldpeak'] }}</td>
+                    <td>{{ heart['slp'] }}</td>
+                    <td>{{ heart['caa'] }}</td>
+                    <td>{{ heart['thall'] }}</td>
+                    <td>{{ heart['output'] }}</td>
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -108,7 +121,7 @@
                             <span class="page-link">{{ i }}</span>
                           </li>
                         {% else : %} 
-                            <li class="page-item p-1"><a class="page-link" href="/search/page/{{ i }}">{{ i }}</a></li>
+                            <li class="page-item p-1"><a class="page-link" href="/search/page/{{ i }}?{{ qs }}">{{ i }}</a></li>
                         {% endif %}
                       {% endfor %}
                     </ul>

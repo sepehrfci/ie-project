@@ -1,6 +1,6 @@
 from flask import Flask , redirect , url_for , request , render_template , send_file
 import csv , os
-import showsdb
+import heartdb
 
 
 app = Flask(__name__)
@@ -15,12 +15,44 @@ def index():
     return render_template('index.html')
 @app.route('/search')
 def search():
-    pagination = showsdb.page_count(nrpp=nrpp)
-    return render_template('search.html',list = showsdb.read_shows(page=1,nrpp=nrpp) , pagination = pagination , page = 1)
+    qs = request.query_string.decode()
+    age = request.args.get('age')
+    sex = request.args.get('sex')
+    cp = request.args.get('cp')
+    trtbps = request.args.get('trtbps')
+    chol = request.args.get('chol')
+    fbs = request.args.get('fbs')
+    restecg = request.args.get('restecg')
+    thalachh = request.args.get('thalachh')
+    exng = request.args.get('exng')
+    oldpeak = request.args.get('oldpeak')
+    slp = request.args.get('slp')
+    caa = request.args.get('caa')
+    thall = request.args.get('thall')
+    output = request.args.get('output')
+    result  = heartdb.search_heart_data(1,nrpp,age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall, output)
+    pagination = heartdb.page_count(nrpp,age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall, output)
+    return render_template('search.html',list = result , pagination = pagination , page = 1 , qs = qs)
 @app.route('/search/page/<page>')
 def search_page (page):
-    pagination = showsdb.page_count(nrpp=nrpp)
-    return render_template('search.html',list = showsdb.read_shows(page=page,nrpp=nrpp) , pagination = pagination , page = int(page))
+    qs = request.query_string.decode()
+    age = request.args.get('age')
+    sex = request.args.get('sex')
+    cp = request.args.get('cp')
+    trtbps = request.args.get('trtbps')
+    chol = request.args.get('chol')
+    fbs = request.args.get('fbs')
+    restecg = request.args.get('restecg')
+    thalachh = request.args.get('thalachh')
+    exng = request.args.get('exng')
+    oldpeak = request.args.get('oldpeak')
+    slp = request.args.get('slp')
+    caa = request.args.get('caa')
+    thall = request.args.get('thall')
+    output = request.args.get('output')
+    result  = heartdb.search_heart_data(page,nrpp,age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall, output)
+    pagination = heartdb.page_count(nrpp,age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall, output)
+    return render_template('search.html',list = result , pagination = pagination , page = int(page) , qs = qs)
 
 @app.route('/add-csv-file')
 def add_csv_file(msg = None):
@@ -48,11 +80,9 @@ def upload_csv_file():
                 continue
             data.append(row)
             # id+=1
-    #create_show_table()
-    #return data
-    # showsdb.drop_shows_table()
-    showsdb.create_show_table()
-    show = showsdb.insert_shows(data)
+    heartdb.drop_heart_table()
+    heartdb.create_heart_table()
+    show = heartdb.insert_heart(data)
     return data
     # return redirect(url_for(add_csv_file(msg="فایل مورد نظر با موفقیت آپلود و داده ها اضافه شد.")))
     # file = request.files.get("file")
