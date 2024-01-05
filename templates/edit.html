@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ایجاد رکورد جدید</title>
+  <link rel="stylesheet" href="http://127.0.0.1:6600/static/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="http://127.0.0.1:6600/static/style.css">
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <div class="col">
+          <form action="/update" method="POST">
+            <div class="row rounded">
+              <div class="col-3 bg-secondary p-2 rounded-end">
+                <input type="hidden" value="{{ record[0][0] }}" name="id" >
+                <div class="form-group p-2">
+                  <input type="text" class="form-control" value="{{ record[0][1] }}" placeholder="age" name="age" required >
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][2] }}" placeholder="sex" name="sex" required>
+                </div>
+                <div class="form-group p-2">
+                  <input type="text" class="form-control" value="{{ record[0][3] }}" placeholder="cp" name="cp" required>
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][4] }}" placeholder="trtbps" name="trtbps" required>
+                </div>
+              </div>
+              <div class="col-3 bg-secondary p-2">
+                <div class="form-group p-2">
+                  <input type="text" class="form-control" value="{{ record[0][5] }}" placeholder="chol" name="chol" required>
+                </div>
+                <div class="form-group p-2"> 
+                    <input type="text" class="form-control" value="{{ record[0][6] }}" placeholder="fbs" name="fbs" required>
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][7] }}" placeholder="restecg" name="restecg" required>
+                </div>
+                <div class="form-group p-2">
+                  <input type="text" class="form-control" value="{{ record[0][8] }}" placeholder="thalachh" name="thalachh" required>
+                </div>
+              </div>
+              <div class="col-3 bg-secondary p-2">
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][9] }}" placeholder="exng" name="exng" required>
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][10] }}" placeholder="oldpeak" name="oldpeak" required>
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][11] }}" placeholder="slp" name="slp" required>
+                </div>
+                <div class="form-group p-2">
+                  <input type="text" class="form-control" value="{{ record[0][12] }}" placeholder="caa" name="caa" required>
+                </div>
+              </div>
+              <div class="col-3 bg-secondary p-2 rounded-start">
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][13] }}" placeholder="thall" name="thall"required>
+                </div>
+                <div class="form-group p-2">
+                    <input type="text" class="form-control" value="{{ record[0][14] }}" placeholder="output" name="output" required>
+                </div>
+                
+            </div>
+              <button type="submit" class="btn btn-primary mt-2 p-2">آپدیت</button>
+          </form>
+          <a href="/search" class="btn btn-info mt-2 p-2" >بازگشت</a>
+        </div>
+        
+    </div>
+</body>
+</html>

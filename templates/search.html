@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>صفحه اصلی</title>
+  <title>جست و جو</title>
   <link rel="stylesheet" href="http://127.0.0.1:6600/static/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -21,11 +21,12 @@
                     <input type="text" class="form-control" placeholder="sex" name="sex">
                 </div>
                 <div class="form-group p-2">
-                    <input type="text" class="form-control" placeholder="trtbps" name="trtbps">
+                  <input type="text" class="form-control" placeholder="cp" name="cp">
                 </div>
                 <div class="form-group p-2">
-                  <input type="text" class="form-control" placeholder="chol" name="chol">
+                    <input type="text" class="form-control" placeholder="trtbps" name="trtbps">
                 </div>
+        
               </div>
               <div class="col-3 bg-secondary p-2">
                 <div class="form-group p-2">
@@ -66,6 +67,7 @@
             </div>
               <button type="submit" class="btn btn-primary mt-2 p-2">جستجو</button>
           </form>
+          <a href="/save-csv?{{ qs }}" class="btn btn-info mt-2"> دریافت فایل خروجی csv </a>
         </div>
         
         <div class="row bg-secondary p-2 rounded mt-2 " style="font-size=10">
@@ -87,6 +89,7 @@
                     <th scope="col">caa</th>
                     <th scope="col">thall</th>
                     <th scope="col">output</th>
+                    <th scope="col">عملیات</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -107,6 +110,12 @@
                     <td>{{ heart['caa'] }}</td>
                     <td>{{ heart['thall'] }}</td>
                     <td>{{ heart['output'] }}</td>
+                    <td>
+                      <form action="/delete_record/{{ heart['id'] }}" method="POST">
+                        <input type="submit" class="btn btn-sm btn-danger" value="حذف">
+                      </form>
+                      <a href="/update-record/{{ heart['id'] }}" class="btn btn-sm btn-info" >ویرایش</a>
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

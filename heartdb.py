@@ -54,6 +54,34 @@ def insert_heart(heart_list):
     connection.commit()
     connection.close()
 
+
+def update_heart(id,update_data):
+    connection = sqlite3.connect("heart.db")
+    cursor = connection.cursor()
+    update_query = "UPDATE heart SET {} WHERE id = {};".format(
+       " , ".join([f"{column} = {value}" for column, value in update_data.items()]), id
+    )
+    cursor.execute(update_query)
+    connection.commit()
+    connection.close()
+
+
+def find(id):
+    connection = sqlite3.connect("heart.db")
+    cursor = connection.cursor()
+    update_query = "SELECT * FROM heart WHERE id = {}".format(id)
+    cursor.execute(update_query)
+    record = cursor.fetchall()
+    connection.close()
+    return record
+
+def delete_heart(id):
+    connection = sqlite3.connect("heart.db")
+    connection.execute(f"DELETE FROM heart WHERE id = { id };")
+    connection.commit()
+    connection.close()
+
+
 def read_heart(page,nrpp):
     offset = (int(page) - 1) * nrpp
     connection = sqlite3.connect("heart.db")
@@ -212,5 +240,65 @@ def search_heart_data(page,nrpp,age=None, sex=None, cp=None, trtbps=None, chol=N
 
     return heart_list
 
+def heart_list(age=None, sex=None, cp=None, trtbps=None, chol=None, fbs=None, restecg=None, thalachh=None, exng=None, oldpeak=None, slp=None, caa=None, thall=None, output=None):
+    conn = sqlite3.connect('heart.db')
+    cursor = conn.cursor()
+    sql = "SELECT * FROM heart WHERE " 
+    conditions = []
 
-# heartdb.read_heart(page=1,nrpp=nrpp)
+    if age:
+        conditions.append(f"age = {age}")
+    if sex :
+        conditions.append(f"sex = '{sex}'")
+    if cp:
+        conditions.append(f"cp = {cp}")
+    if trtbps:
+        conditions.append(f"trtbps = {trtbps}")
+    if chol:
+        conditions.append(f"chol = '{chol}'")
+    if fbs:
+        conditions.append(f"fbs = {fbs}")
+    if restecg:
+        conditions.append(f"restecg = {restecg}")
+    if thalachh:
+        conditions.append(f"thalachh = '{thalachh}'")
+    if exng:
+        conditions.append(f"exng = {exng}")
+    if oldpeak:
+        conditions.append(f"oldpeak = {oldpeak}")
+    if slp:
+        conditions.append(f"slp = '{slp}'")
+    if caa:
+        conditions.append(f"caa = {caa}")
+    if thall:
+        conditions.append(f"thall = '{thall}'")
+    if output:
+        conditions.append(f"output = {output}")
+
+    if not conditions:
+        sql = "SELECT * FROM heart"
+    else:
+        sql += " AND  ".join(conditions)
+    cursor.execute(sql)
+    heart_list = []
+    for row in cursor:
+        heart_list.append({
+            "id": row[0],
+            "age": row[1],
+            "sex": row[2],
+            "cp": row[3],
+            "trtbps": row[4],
+            "chol": row[5],
+            "fbs": row[6],
+            "restecg": row[7],
+            "thalachh": row[8],
+            "exng": row[9],
+            "oldpeak": row[10],
+            "slp": row[11],
+            "caa": row[12],
+            "thall": row[13],
+            "output": row[14],
+        })
+    conn.close()
+
+    return heart_list
